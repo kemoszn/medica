@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}
+Dashboard
+{% endblock %}
+{% block content %}
+<br>
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Hospitals</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table class="table table-bordered">
+                  <thead>                  
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Hospital</th>
+                      <th>State</th>
+                      <th style="width: 180px;">Total Cases</th>
+                      <th style="width: 40px">Confirmed</th>
+                      <th style="width: 40px">Recovered</th>
+                      <th style="width: 40px">PUI</th>
+                      <th style="width: 40px">Deaths</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for i in hospitals %}
+                   {% with hospital=i.name %}
+                    {% for update in updates %}
+                    <tr>
+                      <td>1. {{ update }} </td>
+                      <td>{{ i.name }}</td>
+                      <td>
+                        {{ i.state }}
+                      </td>
+                      <td>100</td>
+                      <td><span class="badge bg-warning" style="font-size: 100%;">{{ i.update.confirmed }}</span></td>
+                      <td><span class="badge bg-success" style="font-size: 100%;">55</span></td>
+                      <td><span class="badge bg-secondary" style="font-size: 100%;">55</span></td>
+                      <td><span class="badge bg-danger" style="font-size: 100%;">55</span></td>
+                    </tr>
+                        {% endfor %}
+                      {% endwith %}
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+                <ul class="pagination pagination-sm m-0 float-right">
+                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                </ul>
+              </div>
+            </div>
+            </div>
+        </div>
+    </div>          
+{% endblock %}
