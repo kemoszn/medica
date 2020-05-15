@@ -14,13 +14,24 @@ class Dashboard(TemplateResponseMixin, View):
         profile = Hospital.objects.filter(owner=request.user)
         updates = Update.objects.filter(hospital=profile[0])
         update = updates[0]
+        labels = []
+        data = []
+        data_1 = []
 
-        print(updates)
-        print(update)
+        queryset = updates.order_by('created')
+        for case in queryset:
+            labels.append(case.created.strftime('%d %B'))
+            data.append(case.confirmed)
 
+        for case in queryset:
+            data_1.append(case.pui)
+        print(labels)
         return self.render_to_response({'profile': profile[0], 
                                         'updates': updates,
-                                        'update': update})
+                                        'update': update,
+                                        'labels': labels,
+                                        'data': data,
+                                        'data_1': data_1})
 
 class HospitalListView(TemplateResponseMixin, View):
     model = Hospital 

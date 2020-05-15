@@ -40,13 +40,19 @@ class Hospital(models.Model):
 class Update(models.Model):
     hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
     ventilators = models.IntegerField(null=True)
+    ventilators_total = models.IntegerField(null=True)
     masks = models.IntegerField(null=True)
+    masks_total = models.IntegerField(null=True)
     gloves = models.IntegerField(null=True)
+    gloves_total = models.IntegerField(null=True)
     respirators = models.IntegerField(null=True)
+    respirators_total = models.IntegerField(null=True)
     pui = models.IntegerField(null=True)
     confirmed = models.IntegerField(null=True)
     acute_care = models.IntegerField(null=True)
+    acute_care_total = models.IntegerField(null=True)
     icu = models.IntegerField(null=True)
+    icu_total = models.IntegerField(null=True)
     created = models.DateTimeField(default=timezone.now)
 
     class Meta:
