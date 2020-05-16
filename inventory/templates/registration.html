@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Register Admin{% endblock %}
+{% block content %}
+<br>
+<div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Creating New Administrator Account</h3>
+              </div>
+        <div class="card-body">
+<form action="." method="post">
+        {{ form|crispy }}
+        {% csrf_token %}
+        <h1 style="background-color: #fff"></h1><button type="submit" 
+        class="btn btn-primary btn-lg" style="padding: top right bottom left;">Create account</button>
+    </form>
+    </div>
+
+{% endblock %}

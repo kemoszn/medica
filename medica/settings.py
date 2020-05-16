@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'crispy_forms',
     'mathfilters',
     'inventory.apps.InventoryConfig',
     'django.contrib.admin',

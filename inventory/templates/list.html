@@ -29,22 +29,26 @@ Dashboard
                   </thead>
                   <tbody>
                   {% for i in hospitals %}
-                   {% with hospital=i.name %}
-                    {% for update in updates %}
+                    
+                      
                     <tr>
-                      <td>1. {{ update }} </td>
+                      <td>{{ i.id }}</td>
                       <td>{{ i.name }}</td>
                       <td>
                         {{ i.state }}
                       </td>
-                      <td>100</td>
-                      <td><span class="badge bg-warning" style="font-size: 100%;">{{ i.update.confirmed }}</span></td>
+                      {% for m in updates %}
+                    {% if i.name == m.hospital %}
+                      <td>{{ m.hospital }}</td>
+                      {% endif %}
+                        {% endfor %}
+                      <td><span class="badge bg-warning" style="font-size: 100%;">1</span></td>
                       <td><span class="badge bg-success" style="font-size: 100%;">55</span></td>
                       <td><span class="badge bg-secondary" style="font-size: 100%;">55</span></td>
                       <td><span class="badge bg-danger" style="font-size: 100%;">55</span></td>
-                    </tr>
-                        {% endfor %}
-                      {% endwith %}
+                    </tr> 
+                    
+                        
                     {% endfor %}
                   </tbody>
                 </table>

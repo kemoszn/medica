@@ -4,7 +4,51 @@ from django.views.generic.base import TemplateResponseMixin, View
 from django.views.generic.detail import DetailView
 from django.shortcuts import render_to_response
 from django.db.models import Count
+from django.views.generic.edit import CreateView
 from django.shortcuts import get_object_or_404
+from django.contrib.auth import authenticate, login
+from django.urls import reverse_lazy
+from django.contrib.auth.forms import UserCreationForm
+from .forms import StateCreationForm, HospitalCreationForm
+from django.http import HttpResponseRedirect
+
+
+class HospitalCreationView(CreateView):
+    template_name = 'form.html'
+    form_class = HospitalCreationForm
+    success_url = reverse_lazy('dashboard')
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+class StateCreationView(CreateView):
+    template_name = 'form.html'
+    form_class = StateCreationForm
+    success_url = reverse_lazy('dashboard')
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+
+class AdminRegistrationView(CreateView):
+    template_name = 'registration.html'
+    form_class = UserCreationForm
+    success_url = reverse_lazy('Dashboard')
+
+    def form_valid(self, form):
+        result = super(AdminRegistrationView,
+                    self).form_valid(form)
+        cd = form.cleaned_data
+        user = authenticate(username=cd['username'],
+                            password=cd['password1'])
+        login(self.request, user)
+        return result
 
 class Dashboard(TemplateResponseMixin, View):
     model = Hospital 
@@ -42,17 +86,20 @@ class HospitalListView(TemplateResponseMixin, View):
                     total_hospitals=Count('hospital'))
         hospitals = Hospital.objects.annotate(
                             total_updates=Count('update'))
-        updates = Update.objects.filter(hospital=hospital)
+        updates = Update.objects.all()
 
         if state:
             state = get_object_or_404(State, slug=state)
             hospitals = hospitals.filter(state=state)
-        #for i in hospitals:
-        #   print(i)
-        #   for update in updates:
-        #       if(update.hospital==i):
-        #            print(update)
-
+        print(hospitals)
+        print(updates)
+        for i in hospitals:
+            print(i)
+            for m in updates:
+                if m.hospital == i.name:
+                    print(m)
+                
+           
         return self.render_to_response({'states': states,
                                         'state': state,
                                         'hospitals': hospitals,
@@ -62,3 +109,10 @@ class HospitalDetailView(DetailView):
     model = Hospital
     template_name = 'detail.html'
 
+
+def StatsView(request):
+    template = 'stats.html'
+    context = {}
+
+
+    return render(request, template, context)

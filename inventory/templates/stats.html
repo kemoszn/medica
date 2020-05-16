@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Stats{% endblock %}
+{% block content %}
+<br>
+<h3>&nbsp; <i class="fa fa-globe nav-icon"></i> Global & Continental Stats</h3>
+<hr>
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">COVID-19 Total Confirmed Cases Worldwide</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <iframe src="https://ourworldindata.org/grapher/total-cases-covid-19?tab=map" width="100%"
+                    height="600px"></iframe>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">COVID-19 Total Confirmed Cases in Africa</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <iframe src="https://ourworldindata.org/grapher/total-cases-covid-19?tab=map&year=59&region=Africa"
+                    width="100%" height="600px"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Total COVID-19 tests per 1,000 people</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <iframe src="https://ourworldindata.org/grapher/full-list-cumulative-total-tests-per-thousand"
+                    style="width: 100%; height: 600px; border: 0px none;"></iframe>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">COVID-19 Confirmed Cases Rapid Increment</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <iframe
+                    src="https://ourworldindata.org/grapher/covid-confirmed-cases-since-100th-case?country=USA+ESP+ITA+KOR+TWN+GBR+NOR"
+                    style="width: 100%; height: 600px; border: 0px none;"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -16,10 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from inventory.views import HospitalListView
+from inventory.views import AdminRegistrationView
+from inventory import views
 
 urlpatterns = [
+    path('stats/', views.StatsView, name="stats"),
     path('admin/', admin.site.urls),
     path('officials/', HospitalListView.as_view(),
         name='hospital_list'),
     path('hospital/', include('inventory.urls')),
+    path('admin/register/', AdminRegistrationView.as_view(),
+        name='admin_register'),
 ]
