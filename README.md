@@ -15,3 +15,10 @@ Aids hospitals admins in reporting data such as COVID-19 in-patients cases (PUI,
 **[TODO]** Additional features include: Case prediction model, Scattered plot on map and push notifications whenever a hospital is in need of supplies. 
 
 **Built with:** Django, ChartJS & Bootstrap 
+
+**Screenshots:**
+![](https://github.com/kemoszn/medica/blob/master/screenshots/image_2020-05-17_20-36-21.png)
+![](https://github.com/kemoszn/medica/blob/master/screenshots/image_2020-05-17_20-38-28.png)
+![](https://github.com/kemoszn/medica/blob/master/screenshots/medica-screenshot.png)
+![](https://github.com/kemoszn/medica/blob/master/screenshots/medica-screenshot1.png)
+![](https://github.com/kemoszn/medica/blob/master/screenshots/medica-screenshot2.png)
