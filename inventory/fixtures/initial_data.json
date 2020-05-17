@@ -1,0 +1,252 @@
+[
+{
+  "model": "inventory.state",
+  "pk": 1,
+  "fields": {
+    "name": "Khartoum",
+    "slug": "khartoum"
+  }
+},
+{
+  "model": "inventory.state",
+  "pk": 3,
+  "fields": {
+    "name": "Al Gezira",
+    "slug": "al-gezira"
+  }
+},
+{
+  "model": "inventory.state",
+  "pk": 4,
+  "fields": {
+    "name": "White Nile",
+    "slug": "white-nile"
+  }
+},
+{
+  "model": "inventory.hospital",
+  "pk": 1,
+  "fields": {
+    "name": "Khartoum State Hospital",
+    "state": 1,
+    "owner": 2,
+    "slug": "khartoum-state-hospital"
+  }
+},
+{
+  "model": "inventory.hospital",
+  "pk": 2,
+  "fields": {
+    "name": "Soba Educational Hospital",
+    "state": 1,
+    "owner": 1,
+    "slug": "soba-educational-hospital"
+  }
+},
+{
+  "model": "inventory.hospital",
+  "pk": 3,
+  "fields": {
+    "name": "Wad Madani Educational Hospital",
+    "state": 3,
+    "owner": 4,
+    "slug": "wad-madani-educational-hospital"
+  }
+},
+{
+  "model": "inventory.hospital",
+  "pk": 4,
+  "fields": {
+    "name": "Alia Hospital",
+    "state": 3,
+    "owner": 5,
+    "slug": "alia-hospital"
+  }
+},
+{
+  "model": "inventory.hospital",
+  "pk": 5,
+  "fields": {
+    "name": "White Nile Hospital",
+    "state": 4,
+    "owner": 3,
+    "slug": "white-nile-hospital"
+  }
+},
+{
+  "model": "inventory.update",
+  "pk": 1,
+  "fields": {
+    "hospital": 2,
+    "ventilators": 9,
+    "ventilators_total": 20,
+    "masks": 22,
+    "masks_total": 100,
+    "gloves": 70,
+    "gloves_total": 200,
+    "respirators": 7,
+    "respirators_total": 30,
+    "pui": 90,
+    "confirmed": 20,
+    "acute_care": 5,
+    "acute_care_total": 10,
+    "icu": 5,
+    "icu_total": 10,
+    "created": "2020-04-09T15:02:59Z"
+  }
+},
+{
+  "model": "inventory.update",
+  "pk": 2,
+  "fields": {
+    "hospital": 2,
+    "ventilators": 12,
+    "ventilators_total": 20,
+    "masks": 40,
+    "masks_total": 100,
+    "gloves": 120,
+    "gloves_total": 200,
+    "respirators": 15,
+    "respirators_total": 30,
+    "pui": 200,
+    "confirmed": 100,
+    "acute_care": 5,
+    "acute_care_total": 10,
+    "icu": 5,
+    "icu_total": 10,
+    "created": "2020-05-15T15:05:35Z"
+  }
+},
+{
+  "model": "inventory.update",
+  "pk": 3,
+  "fields": {
+    "hospital": 2,
+    "ventilators": 9,
+    "ventilators_total": 20,
+    "masks": 22,
+    "masks_total": 100,
+    "gloves": 70,
+    "gloves_total": 200,
+    "respirators": 7,
+    "respirators_total": 30,
+    "pui": 122,
+    "confirmed": 300,
+    "acute_care": 5,
+    "acute_care_total": 10,
+    "icu": 5,
+    "icu_total": 10,
+    "created": "2020-07-16T18:12:46Z"
+  }
+},
+{
+  "model": "inventory.update",
+  "pk": 4,
+  "fields": {
+    "hospital": 2,
+    "ventilators": 9,
+    "ventilators_total": 20,
+    "masks": 22,
+    "masks_total": 100,
+    "gloves": 70,
+    "gloves_total": 200,
+    "respirators": 7,
+    "respirators_total": 30,
+    "pui": 150,
+    "confirmed": 150,
+    "acute_care": 5,
+    "acute_care_total": 10,
+    "icu": 10,
+    "icu_total": 20,
+    "created": "2020-05-31T18:21:59Z"
+  }
+},
+{
+  "model": "inventory.update",
+  "pk": 5,
+  "fields": {
+    "hospital": 1,
+    "ventilators": 1,
+    "ventilators_total": 2,
+    "masks": 3,
+    "masks_total": 4,
+    "gloves": 6,
+    "gloves_total": 7,
+    "respirators": 8,
+    "respirators_total": 9,
+    "pui": 10,
+    "confirmed": 11,
+    "acute_care": 12,
+    "acute_care_total": 13,
+    "icu": 14,
+    "icu_total": 15,
+    "created": "2020-05-16T01:07:43Z"
+  }
+},
+{
+  "model": "inventory.update",
+  "pk": 6,
+  "fields": {
+    "hospital": 4,
+    "ventilators": 15,
+    "ventilators_total": 100,
+    "masks": 40,
+    "masks_total": 300,
+    "gloves": 150,
+    "gloves_total": 400,
+    "respirators": 12,
+    "respirators_total": 40,
+    "pui": 100,
+    "confirmed": 75,
+    "acute_care": 100,
+    "acute_care_total": 200,
+    "icu": 15,
+    "icu_total": 60,
+    "created": "2020-05-16T21:24:56Z"
+  }
+},
+{
+  "model": "inventory.update",
+  "pk": 7,
+  "fields": {
+    "hospital": 3,
+    "ventilators": 40,
+    "ventilators_total": 100,
+    "masks": 40,
+    "masks_total": 97,
+    "gloves": 40,
+    "gloves_total": 100,
+    "respirators": 40,
+    "respirators_total": 100,
+    "pui": 100,
+    "confirmed": 40,
+    "acute_care": 40,
+    "acute_care_total": 100,
+    "icu": 60,
+    "icu_total": 100,
+    "created": "2020-05-21T21:35:35Z"
+  }
+},
+{
+  "model": "inventory.update",
+  "pk": 8,
+  "fields": {
+    "hospital": 5,
+    "ventilators": 40,
+    "ventilators_total": 100,
+    "masks": 40,
+    "masks_total": 100,
+    "gloves": 40,
+    "gloves_total": 100,
+    "respirators": 40,
+    "respirators_total": 100,
+    "pui": 400,
+    "confirmed": 100,
+    "acute_care": 40,
+    "acute_care_total": 100,
+    "icu": 70,
+    "icu_total": 100,
+    "created": "2020-05-16T21:36:41Z"
+  }
+}
+]
