@@ -11,6 +11,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from .forms import StateCreationForm, HospitalCreationForm
 from django.http import HttpResponseRedirect
+from django.views.generic.list import ListView
 
 
 class HospitalCreationView(CreateView):
@@ -58,9 +59,11 @@ class Dashboard(TemplateResponseMixin, View):
         profile = Hospital.objects.filter(owner=request.user)
         updates = Update.objects.filter(hospital=profile[0])
         update = updates[0]
-        labels = []
+        labels = [] #line chart
         data = []
         data_1 = []
+        
+
 
         queryset = updates.order_by('created')
         for case in queryset:
@@ -69,7 +72,8 @@ class Dashboard(TemplateResponseMixin, View):
 
         for case in queryset:
             data_1.append(case.pui)
-        print(labels)
+        
+
         return self.render_to_response({'profile': profile[0], 
                                         'updates': updates,
                                         'update': update,
@@ -81,29 +85,60 @@ class HospitalListView(TemplateResponseMixin, View):
     model = Hospital 
     template_name = 'list.html'
 
-    def get(self, request, state=None, hospital=None):
+    def get(self, request, state=None):
         states = State.objects.annotate(
                     total_hospitals=Count('hospital'))
         hospitals = Hospital.objects.annotate(
                             total_updates=Count('update'))
         updates = Update.objects.all()
+        labels = []
+        data = []
+        data_1 = []
+        labels_1 = [] #pie chart
+        data_2 = []
+
+        queryset= updates.order_by('created')
+        #queryset = Hospital.objects.all
+        for case in queryset:
+            labels.append(case.created.strftime('%d %B'))
+            data.append(case.confirmed)
+
+        for case in queryset:
+            data_1.append(case.pui)
+        
+        queryset_1 = Hospital.objects.all()
+        for hospital in queryset_1:
+            labels_1.append(hospital.name)
+            data_2.append(hospital.update_set.all()[0].confirmed+hospital.update_set.all()[0].pui)  
 
         if state:
             state = get_object_or_404(State, slug=state)
             hospitals = hospitals.filter(state=state)
-        print(hospitals)
-        print(updates)
-        for i in hospitals:
-            print(i)
-            for m in updates:
-                if m.hospital == i.name:
-                    print(m)
-                
-           
-        return self.render_to_response({'states': states,
-                                        'state': state,
-                                        'hospitals': hospitals,
-                                        'updates': updates})                    
+            labels_1 = []
+            data_2 = []
+            queryset_1 = Hospital.objects.filter(state=state)
+            for hospital in queryset_1:
+                labels_1.append(hospital.name)
+                data_2.append(hospital.update_set.all()[0].confirmed+hospital.update_set.all()[0].pui)
+        
+        context = {'states': states,
+                    'state': state,
+                    'hospitals': hospitals,
+                    'updates': updates,
+                    'labels': labels,
+                    'data': data,
+                    'data_1': data_1,
+                    'labels_1': labels_1,
+                    'data_2': data_2}        
+        return self.render_to_response(context)                 
+'''
+def HospitalListView(request):
+    template = 'list.html'
+    updates = Update.objects.all()
+    hospitals = Hospital.objects.all()
+    context = {'updates' : updates, 'hospitals' : hospitals}
+    return render(request, template, context)
+'''
 
 class HospitalDetailView(DetailView):
     model = Hospital

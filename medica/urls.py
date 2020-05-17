@@ -18,12 +18,15 @@ from django.urls import path, include
 from inventory.views import HospitalListView
 from inventory.views import AdminRegistrationView
 from inventory import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('stats/', views.StatsView, name="stats"),
     path('admin/', admin.site.urls),
     path('officials/', HospitalListView.as_view(),
         name='hospital_list'),
+    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('hospital/', include('inventory.urls')),
     path('admin/register/', AdminRegistrationView.as_view(),
         name='admin_register'),

@@ -14,9 +14,9 @@ urlpatterns = [
         views.HospitalCreationView.as_view(),
         name='hospital_creation'),   
 
-    #path('state/<slug:state>/', 
-    #    views.HospitalListView.as_view(),
-    #    name='hospital_list_state'),
+    path('state/<slug:state>/', 
+        views.HospitalListView.as_view(),
+        name='hospital_list_state'),
     
     path('<slug:slug>/',
         views.HospitalDetailView.as_view(),

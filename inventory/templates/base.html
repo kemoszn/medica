@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{% static 'css/adminlte.min.css' %}">
+  <link rel="stylesheet" href="{% static 'fontawesome/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -26,7 +28,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="../../index3.html" class="nav-link">Technical Support</a>
+        <a href="#" class="nav-link">Technical Support</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">About</a>
@@ -38,12 +40,12 @@
 <!-- Aside navbar -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="../../index3.html" class="brand-link">
-      <img src="https://gallery.smarthealthit.org/api/v1/images/hrmkhyspg4vwptt5frzp"
+    <a href="#" class="brand-link">
+      <img src="https://image.freepik.com/free-vector/letter-s-medical-logo-vector_23987-323.jpg"
            alt="AdminLTE Logo"
            class="brand-image img-circle elevation-3"
-           style="opacity: .8;">
-      <span class="brand-text font-weight-heavy">MediX</span>
+           style="opacity: .8; background-color: white;">
+      <span class="brand-text font-weight-heavy">Medica</span>
     </a>
 
      <!-- Sidebar -->
@@ -62,10 +64,29 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="{% url 'dashboard' %}" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
+              </p>
+            </a>
+          </li>
+           <li class="nav-item has-treeview">
+            <a href="{% url 'stats' %}" class="nav-link">
+              <i class="nav-icon fas fa-globe"></i>
+              <p>
+                Global Stats
+              </p>
+            </a>
+          </li>
+           <li class="nav-item has-treeview">
+            <a href="{% url 'hospital_list' %}" class="nav-link">
+            &nbsp;
+              <i class="fa fa-heartbeat" aria-hidden="true"></i>
+
+              <p>
+              &nbsp;&nbsp;
+                Hospitals
               </p>
             </a>
           </li>
@@ -79,25 +100,38 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/forms/general.html" class="nav-link">
+                <a href="{% url 'hospital_creation' %}" class="nav-link">
                   <i class="far fa-hospital nav-icon"></i>
                   <p>Hospital</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/forms/advanced.html" class="nav-link">
+                <a href="{% url 'state_creation' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>State</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/forms/editors.html" class="nav-link">
+                <a href="{% url 'admin_register' %}" class="nav-link">
                   <i class="far fa-user-circle nav-icon"></i>
                   <p>Administartor</p>
                 </a>
               </li>
-              
+               
             </ul>
+          </li>
+          
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">&nbsp;
+              <i class="fa fa-sign-in"></i>
+              &nbsp;&nbsp;<p>
+              {% if request.user.is_authenticated %}
+                Logout
+              {% else %}
+              Login
+              {% endif %}
+              </p>
+            </a>
           </li>
         </ul>
         </nav>
@@ -118,6 +152,12 @@
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
+  <footer class="main-footer" style="text-align: center;">
+    <strong>Copyright &copy; 2020 <a href="http://github.com/kemoszn">kemoszn</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+    </div>
+  </footer>
 </div>
 <!-- ./wrapper -->
 <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
@@ -131,6 +171,7 @@
 <script src="{% static 'js/demo.js' %}"></script>
 <script src="{% static 'plugins/chart.js/Chart.min.js' %}"></script>
 <script src="{% static 'plugins/chart.js/utils.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 <script>
 {% block jscript %}
 {% endblock %}

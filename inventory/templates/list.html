@@ -4,6 +4,62 @@ Dashboard
 {% endblock %}
 {% block content %}
 <br>
+<h3>&nbsp; <i class="fa fa-bar-chart" aria-hidden="true"></i> COVID-19 Local Stats</h3>
+<hr>
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">COVID-19 Total In-Patients in Local Hospitals </h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                 <div class="chart" style="float: center;">
+                      <!-- Sales Chart Canvas -->
+                       <div style="width:100%;">
+		<canvas id="canvas" height="122.8" style="-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none; height: 100px;"></canvas>
+	</div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                {% if state %} COVID-19 Total In-Patients Distribution in {{ state }} State 
+                {% else %}
+                COVID-19 Total In-Patients Distribution in All States
+                {% endif %}
+                </h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+              <div class="chart" style="float: center;">
+                      <!-- Sales Chart Canvas -->
+                       <div style="width:100%;">
+                 <canvas id="chart-area" style="canvas {
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+	}"></canvas>
+              
+            </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
 
       <div class="container-fluid">
         <div class="row">
@@ -11,6 +67,25 @@ Dashboard
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Hospitals</h3>
+                  <div class="card-tools">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
+                       {% if state %}
+                       <b style="font-size: 18px; color: black;">{{ state }}</b>
+                       {% else %}
+                       <b style="font-size: 18px; color: black;">All States</b>
+                       {% endif %}
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-right" role="menu">
+                        {% if state %}
+                        <a href="{% url 'hospital_list' %}" class="dropdown-item">All</a>
+                        {% endif %}
+                        {% for st in states %}
+                        <a href="{% url 'hospital_list_state' st.slug %}" class="dropdown-item">{{ st.name }}</a>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -18,34 +93,34 @@ Dashboard
                   <thead>                  
                     <tr>
                       <th style="width: 10px">#</th>
-                      <th>Hospital</th>
-                      <th>State</th>
-                      <th style="width: 180px;">Total Cases</th>
+                      <th style="width: 500px;">Hospital</th>
+                      <th style="width: 300px;">State</th>
+                      <th style="width: 180px;">Total In-Patients</th>
                       <th style="width: 40px">Confirmed</th>
-                      <th style="width: 40px">Recovered</th>
                       <th style="width: 40px">PUI</th>
-                      <th style="width: 40px">Deaths</th>
+                      
                     </tr>
                   </thead>
                   <tbody>
-                  {% for i in hospitals %}
+                  {% for hospital in hospitals %}
                     
                       
                     <tr>
-                      <td>{{ i.id }}</td>
-                      <td>{{ i.name }}</td>
+                      <td>{{ forloop.counter }}</td>
+                      <td>{{ hospital.name }}</td>
                       <td>
-                        {{ i.state }}
+                        {{ hospital.state }}
                       </td>
-                      {% for m in updates %}
-                    {% if i.name == m.hospital %}
-                      <td>{{ m.hospital }}</td>
-                      {% endif %}
-                        {% endfor %}
-                      <td><span class="badge bg-warning" style="font-size: 100%;">1</span></td>
-                      <td><span class="badge bg-success" style="font-size: 100%;">55</span></td>
-                      <td><span class="badge bg-secondary" style="font-size: 100%;">55</span></td>
-                      <td><span class="badge bg-danger" style="font-size: 100%;">55</span></td>
+                    {% for update in hospital.update_set.all %}  
+                      {% if forloop.first %}
+                      <td>{{ update.confirmed|add:update.pui }}&nbsp; <i class="fa fa-angle-up" aria-hidden="true" 
+                      style="color: green; font-size: 17px; font-weight: bold;"></i></td>
+                      
+                      
+                      <td><span class="badge bg-warning" style="font-size: 100%;">{{ update.confirmed }}</span></td>
+                      <td><span class="badge bg-success" style="font-size: 100%;">{{ update.pui }}</span></td>
+                    {% endif %}
+                    {% endfor %}  
                     </tr> 
                     
                         
@@ -67,4 +142,105 @@ Dashboard
             </div>
         </div>
     </div>          
+{% endblock %}
+{% block jscript %}
+		var lineChartData = {
+			labels: {{ labels|safe }},
+			datasets: [{
+				label: 'Confirmed Cases',
+				borderColor: window.chartColors.red,
+				backgroundColor: window.chartColors.red,
+				fill: false,
+				data: {{ data|safe }},
+				yAxisID: 'y-axis-1',
+			}, {
+				label: 'Persons Under Investigation (PUI)',
+				borderColor: window.chartColors.blue,
+				backgroundColor: window.chartColors.blue,
+				fill: false,
+				data: {{ data_1|safe }},
+				yAxisID: 'y-axis-2'
+			}]
+		};
+
+		window.onload = function() {
+			var ctx = document.getElementById('canvas').getContext('2d');
+			window.myLine = Chart.Line(ctx, {
+				data: lineChartData,
+				options: {
+					responsive: true,
+					hoverMode: 'index',
+					stacked: false,
+					title: {
+						display: false,
+						text: 'Chart.js Line Chart - Multi Axis'
+					},
+					scales: {
+						yAxes: [{
+							type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+							display: true,
+							position: 'left',
+							id: 'y-axis-1',
+						}, {
+							type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+							display: true,
+							position: 'right',
+							id: 'y-axis-2',
+
+							// grid line settings
+							gridLines: {
+								drawOnChartArea: false, // only want the grid lines for one axis to show up
+							},
+						}],
+					}
+				}
+			});
+
+      var randomScalingFactor = function() {
+			return Math.round(Math.random() * 100);
+		  };
+
+      var config = {
+        type: 'doughnut',
+        data: {
+          datasets: [{
+            data: {{ data_2|safe }},
+            backgroundColor: [
+              window.chartColors.red,
+              window.chartColors.orange,
+              window.chartColors.yellow,
+              window.chartColors.green,
+              window.chartColors.blue,
+            ],
+            label: 'Dataset 1'
+          }],
+          labels: {{ labels_1|safe }}
+        },
+        options: {
+          responsive: true,
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'In-Patients Distribution Chart'
+          },
+          animation: {
+            animateScale: true,
+            animateRotate: true
+          }
+        }
+      };
+
+      var ctx = document.getElementById('chart-area').getContext('2d');
+			window.myDoughnut = new Chart(ctx, config);
+		};
+
+
+    
+		
+
+		
+		
+
 {% endblock %}
